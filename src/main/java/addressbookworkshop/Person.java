@@ -13,6 +13,23 @@ public class Person {
 	public String phno;
 	public String emailId;
 
+	
+/*
+ * construstor
+ */
+	public Person(String firstName, String lastName, String address, String city, String state, String zip, String phno,
+			String emailId) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phno = phno;
+		this.emailId = emailId;
+	}
+
 	/*
 	 * created getter and setters
 	 */
