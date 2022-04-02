@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class AddressBook {
 	/**
-	 * Procedure 
-	 * ==========================================
-	 *  1.created arrayList
-	 *  2.Method to add Contacts 
-	 *  3.method to editDetails
-	 *  4.
+	 * Procedure ========================================== 1.created arrayList
+	 * 2.Method to add Contacts 3.method to editDetails 4.
 	 * ==========================================
 	 */
 
@@ -25,6 +22,18 @@ public class AddressBook {
 	static List<Person> list = new ArrayList<Person>();
 	static Person person;
 	static AddressBook addressBook = new AddressBook();
+	/*
+	 * regex to validate input from user
+	 */
+
+	private static final String namePattern = "^[A-Z]{1}[a-z]{2,}$";
+	private static final String emailPattern = "^[a-z0-9]{3,}+([_+-.][a-z0-9]{3,}+)*@[a-z0-9]+.[a-z]{2,3}+(.[a-z]{2,3}){0,1}$";
+	private static final String addressPattern = "^[A-Za-z0-9]{5,}$";
+	private static final String cityPattern = "^[A-Za-z]{2,}$";
+	private static final String statePattern = "^[A-Za-z]{2,}$";
+	private static final String zipPattern = "^[0-9]{6}$";
+	private static final String phonePattern = "^[0-9]{10}$";
+	private static final String passwordPattern = "^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*$";
 
 	/*
 	 * checking dublicate first name
@@ -32,6 +41,7 @@ public class AddressBook {
 	public void checkDublicate() throws Exception {
 		System.out.println("Enter First Name: ");
 		String name = sc.next();
+
 		try {
 			if (list.size() > 0) {
 				for (Person personList : list) {
@@ -66,20 +76,66 @@ public class AddressBook {
 	public void addContact(String name) throws Exception {
 		try {
 			String firstName = name;
+			if (firstName.matches(namePattern)) {
+			} else {
+				System.out.println("Please Enter Valid First Name");
+				addressBook.checkDublicate();
+			}
+
 			System.out.println("Enter Last Name: ");
 			String lastName = sc.next();
+			if (lastName.matches(namePattern)) {
+			} else {
+				System.out.println("Please Enter Valid Last Name \nPlease Refresh...");
+				System.exit(0);
+			}
+
 			System.out.println("Enter Address: ");
 			String address = sc.next();
+			if (address.matches(addressPattern)) {
+			} else {
+				System.out.println("Please Enter Valid Address \nPlease Refresh...");
+				System.exit(0);
+			}
+
 			System.out.println("Enter City Name: ");
 			String city = sc.next();
+			if (city.matches(cityPattern)) {
+			} else {
+				System.out.println("Please Enter Valid city Name \nPlease Refresh...");
+				System.exit(0);
+			}
+
 			System.out.println("Enter State Name: ");
 			String state = sc.next();
+			if (state.matches(statePattern)) {
+			} else {
+				System.out.println("Please Enter Valid State Name \nPlease Refresh...");
+				System.exit(0);
+			}
+
 			System.out.println("Enter Zip code: ");
-			int zip = sc.nextInt();
+			String zip = sc.next();
+			if (zip.matches(zipPattern)) {
+			} else {
+				System.out.println("Please Enter Valid zip code ex.416552 \nPlease Refresh...");
+				System.exit(0);
+			}
+
 			System.out.println("Enter Phone Number: ");
-			long phno = sc.nextLong();
+			String phno = sc.next();
+			if (phno.matches(phonePattern)) {
+			} else {
+				System.out.println("Please Enter Valid 10 digit PhoneNumber \nPlease Refresh...");
+				System.exit(0);
+			}
 			System.out.println("Enter email address: ");
 			String emailId = sc.next();
+			if (emailId.matches(emailPattern)) {
+			} else {
+				System.out.println("Please Enter Valid Email Address ex.abc-100@yahoo.com \nPlease Refresh...");
+				System.exit(0);
+			}
 
 			person = new Person(firstName, lastName, address, city, state, zip, phno, emailId);
 			list.add(person);
@@ -143,13 +199,13 @@ public class AddressBook {
 					break;
 				case 6:
 					System.out.println("Enter new Zip code: ");
-					int new_zip = sc.nextInt();
+					String new_zip = sc.next();
 					list.get(i).setZip(new_zip);
 					System.out.println(list.get(i).getZip());
 					break;
 				case 7:
 					System.out.println("Enter new Phone Number: ");
-					long new_phno = sc.nextLong();
+					String new_phno = sc.next();
 					list.get(i).setPhno(new_phno);
 					System.out.println(list.get(i).getPhno());
 					break;
@@ -195,10 +251,8 @@ public class AddressBook {
 
 	public static void main(String[] args) throws Exception {
 		/**
-		 * 1.created object of class 
-		 * 2.creating a user choice to add or edit contacts
-		 * 3.Checking Arraylist is empty of not
-		 * 4.deleting contacts
+		 * 1.created object of class 2.creating a user choice to add or edit contacts
+		 * 3.Checking Arraylist is empty of not 4.deleting contacts
 		 */
 
 		/*
