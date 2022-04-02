@@ -2,16 +2,18 @@ package addressbookworkshop;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
 	/**
-	 * Procedure
-	 * ============================================= 
-	 * 1.created arrayList
-	 * 2. Method to add Contacts 
-	 * 3.method to editDetails
+	 * Procedure 
+	 * ==========================================
+	 *  1.created arrayList
+	 *  2.Method to add Contacts 
+	 *  3.method to editDetails
+	 *  4.
 	 * ==========================================
 	 */
 
@@ -22,59 +24,78 @@ public class AddressBook {
 	static Scanner sc = new Scanner(System.in);
 	static List<Person> list = new ArrayList<Person>();
 	static Person person;
+	static AddressBook addressBook = new AddressBook();
 
 	/*
-	 * 2. Method to add Contacts Adding contacts with user name
-	 * 
-	 * checking first name already exists or not
-	 * If first name is not  exist then  adding all contacts 
+	 * checking dublicate first name
 	 */
-	public void addContact() {
+	public void checkDublicate() throws Exception {
 		System.out.println("Enter First Name: ");
-		String firstName = sc.next();
-		System.out.println("Enter Last Name: ");
-		String lastName = sc.next();
-		System.out.println("Enter Address: ");
-		String address = sc.next();
-		System.out.println("Enter City Name: ");
-		String city = sc.next();
-		System.out.println("Enter State Name: ");
-		String state = sc.next();
-		System.out.println("Enter Zip code: ");
-		String zip = sc.next();
-		System.out.println("Enter Phone Number: ");
-		String phno = sc.next();
-		System.out.println("Enter email address: ");
-		String emailId = sc.next();
-		if (list.size() > 0) {
-			for (Person personList : list) {
-				person = personList;
+		String name = sc.next();
+		try {
+			if (list.size() > 0) {
+				for (Person personList : list) {
+					person = personList;
 
-				/*
-				 * checking first name already exists or not
-				 */
-				if (firstName.equals(person.firstName)) {
-					System.out.println("Person with name : " + person.firstName + " already exists......");
-					break;
+					/*
+					 * checking first name already exists or not
+					 */
+					if (name.equals(person.firstName)) {
+						System.out.println("Person with name : " + person.firstName + " already exists......");
+						addressBook.checkDublicate();
+					} else {
+						addressBook.addContact(name);
+					}
 				}
+
+			} else {
+				addressBook.addContact(name);
 			}
-		} else {
-			/*
-			 * If first name is not same the adding all contacts 
-			 */
-			person = new Person(firstName, lastName, address, city, state, zip, phno, emailId);
-			list.add(person);
-			System.out.println(list);
+		} catch (NullPointerException e) {
+			System.out.println(e);
+
 		}
 	}
 
 	/*
-	 * 3.method to editDetails
-	 * looping in Arraylist
-	 * checking first name is equal as given name for edit
+	 * 2. Method to add Contacts Adding contacts with user name
+	 * 
+	 * checking first name already exists or not If first name is not exist then
+	 * adding all contacts
+	 */
+	public void addContact(String name) throws Exception {
+		try {
+			String firstName = name;
+			System.out.println("Enter Last Name: ");
+			String lastName = sc.next();
+			System.out.println("Enter Address: ");
+			String address = sc.next();
+			System.out.println("Enter City Name: ");
+			String city = sc.next();
+			System.out.println("Enter State Name: ");
+			String state = sc.next();
+			System.out.println("Enter Zip code: ");
+			int zip = sc.nextInt();
+			System.out.println("Enter Phone Number: ");
+			long phno = sc.nextLong();
+			System.out.println("Enter email address: ");
+			String emailId = sc.next();
+
+			person = new Person(firstName, lastName, address, city, state, zip, phno, emailId);
+			list.add(person);
+			System.out.println(list);
+		} catch (InputMismatchException e) {
+			System.out.println("Please Enter the valid input");
+
+		}
+	}
+
+	/*
+	 * 3.method to editDetails looping in Arraylist checking first name is equal as
+	 * given name for edit
 	 * 
 	 */
-	public void editDetails() {
+	public void editDetails() throws Exception {
 		System.out.println("Enter first name: ");
 		String fname = sc.next();
 		/*
@@ -122,13 +143,13 @@ public class AddressBook {
 					break;
 				case 6:
 					System.out.println("Enter new Zip code: ");
-					String new_zip = sc.next();
+					int new_zip = sc.nextInt();
 					list.get(i).setZip(new_zip);
 					System.out.println(list.get(i).getZip());
 					break;
 				case 7:
 					System.out.println("Enter new Phone Number: ");
-					String new_phno = sc.next();
+					long new_phno = sc.nextLong();
 					list.get(i).setPhno(new_phno);
 					System.out.println(list.get(i).getPhno());
 					break;
@@ -147,43 +168,80 @@ public class AddressBook {
 		System.out.println(list);
 	}
 
-	public static void main(String[] args) {
+	/*
+	 * method to delete contacts
+	 */
+	public void deleteContact() throws Exception {
+
+		System.out.println("Enter the first name to Delete");
+		String dname = sc.next();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				for (Person personList : list) {
+
+					if (list.get(i).getFirstName().equalsIgnoreCase(dname)) {
+						list.remove(i);
+						System.out.println("Contacts removed successfully");
+						System.out.println(list);
+						break;
+					}
+				}
+			}
+		} else {
+			System.out.println("Match not found");
+		}
+
+	}
+
+	public static void main(String[] args) throws Exception {
 		/**
 		 * 1.created object of class 
 		 * 2.creating a user choice to add or edit contacts
 		 * 3.Checking Arraylist is empty of not
+		 * 4.deleting contacts
 		 */
-		
-		
+
 		/*
-		 * 1.created object of class 
+		 * 1.created object of class
 		 */
+
 		AddressBook addressBook = new AddressBook();
 		System.out.println("Welcome to Address Book Program in AddressBook Main Class");
 
 		/*
 		 * 2.creating a user choice to add or edit contacts
 		 */
+		try {
+			while (true) {
+				System.out.println("Enter choice...\n1 :Add Contact \n2 : Edit Details \n3 :Delete by Name");
+				int choice = sc.nextInt();
+				switch (choice) {
+				case 1:
+					System.out.println("Enter Number of contacts to Add");
+					int a = sc.nextInt();
+					for (int i = 1; i <= a; i++) {
+						addressBook.checkDublicate();
+					}
+					break;
+				case 2:
+					if (AddressBook.list.isEmpty()) {
+						System.out.println("Address Book is empty..!!");
+						break;
+					} else {
+						addressBook.editDetails();
+					}
+					break;
+				case 3:
+					addressBook.deleteContact();
+					break;
 
-		while (true) {
-			System.out.println("Enter choice...\n1 :Add Contact \n2 : Edit Details");
-			int choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				addressBook.addContact();
-				break;
-			case 2:
-				/*
-				 * 3.Checking Arraylist is empty of not
-				 */
-				if (AddressBook.list.isEmpty()) {
-					System.out.println("Address Book is empty..!!");
-					break;
-				} else {
-					addressBook.editDetails();
-					break;
+				default: {
+					System.out.println("Enter a correct choice");
+				}
 				}
 			}
+		} catch (Exception e) {
+			System.out.println();
 		}
 	}
 

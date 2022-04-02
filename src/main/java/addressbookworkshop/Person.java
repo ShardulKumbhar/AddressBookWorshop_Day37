@@ -9,15 +9,14 @@ public class Person {
 	public String address;
 	public String city;
 	public String state;
-	public String zip;
-	public String phno;
+	public int zip;
+	public long phno;
 	public String emailId;
 
-	
-/*
- * construstor
- */
-	public Person(String firstName, String lastName, String address, String city, String state, String zip, String phno,
+	/*
+	 * created constructor
+	 */
+	public Person(String firstName, String lastName, String address, String city, String state, int zip, long phno,
 			String emailId) {
 		super();
 		this.firstName = firstName;
@@ -30,9 +29,6 @@ public class Person {
 		this.emailId = emailId;
 	}
 
-	/*
-	 * created getter and setters
-	 */
 	public String getFirstName() {
 		return firstName;
 	}
@@ -73,19 +69,19 @@ public class Person {
 		this.state = state;
 	}
 
-	public String getZip() {
+	public int getZip() {
 		return zip;
 	}
 
-	public void setZip(String zip) {
+	public void setZip(int zip) {
 		this.zip = zip;
 	}
 
-	public String getPhno() {
+	public long getPhno() {
 		return phno;
 	}
 
-	public void setPhno(String phno) {
+	public void setPhno(long phno) {
 		this.phno = phno;
 	}
 
@@ -98,11 +94,11 @@ public class Person {
 	}
 
 	/*
-	 * created to print or display
+	 * created display method
 	 */
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
+		return "\nPerson [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
 				+ ", state=" + state + ", zip=" + zip + ", phno=" + phno + ", emailId=" + emailId + "]";
 	}
 
