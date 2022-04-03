@@ -99,7 +99,7 @@ public class Person {
 	/*
 	 * method to display
 	 */
-	
+
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city

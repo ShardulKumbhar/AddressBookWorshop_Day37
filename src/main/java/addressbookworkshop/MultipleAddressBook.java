@@ -6,9 +6,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MultipleAddressBook {
-
+	static Person person;
 	Map<String, AddressBookServer> addressBookSystem = new HashMap<String, AddressBookServer>();
 	Scanner sc = new Scanner(System.in);
+	AddressBookServer addressBookServer = new AddressBookServer();
 
 	public void AddMultipleAddressBook() {
 		System.out.println("Enter the name of address book :");
@@ -30,31 +31,30 @@ public class MultipleAddressBook {
 		}
 	}
 
+	/*
+	 * Adding contacts to addressbook
+	 */
 	public void addingContacts() throws Exception {
-		System.out.println("\nEnter name of adress book you want to add contatcts in");
-		String existingBook = sc.next();
+		System.out.println("Enter name of Address Book: ");
+		String findBook = sc.next();
 		try {
-
-			addressBookSystem.get(existingBook);
-			if (existingBook == null) {
+			AddressBookServer scr = addressBookSystem.get(findBook);
+			if (scr == null) {
 				System.out.println("Book Not Exist");
 			} else {
-				addressBookSystem.get(existingBook).checkDublicate();
-
+				scr.checkForDuplicate();
 			}
-
 		} catch (Exception e) {
-			System.out.println("Address book not exist...!!!!  \nEnter valid address book ");
 			addingContacts();
-			// System.out.println(e);
 		}
+
 	}
 
 	public void noOfContactsToAdd() throws Exception {
-		MultipleAddressBook map = new MultipleAddressBook();
+
 		try {
 
-			System.out.println("Enter Number of contacts to Add");
+			System.out.println("Enter Number of addressBookSystems to Add");
 			int a = sc.nextInt();
 			for (int i = 1; i <= a; i++) {
 				addingContacts();
@@ -62,6 +62,26 @@ public class MultipleAddressBook {
 		} catch (Exception e) {
 			System.out.println("Please Enter Valind number");
 		}
+	}
+
+	public void deleteContactInBook() throws Exception {
+		System.out.println("Enter Name of Address Book you want to delete the contacts in it: ");
+		Scanner scanner = new Scanner(System.in);
+		String bookName = scanner.next();
+		if (addressBookSystem.containsKey(bookName)) {
+			addressBookSystem.get(bookName).deleteContact();
+		} else {
+			System.out.println("AddressBook doesn't exist, Please enter correct name.");
+			deleteContactInBook();
+		}
+	}
+
+	public void displayBook() {
+		for (String i : addressBookSystem.keySet()) {
+			System.out.println(i);
+			System.out.println(addressBookSystem.get(i).contact);
+		}
 
 	}
+
 }

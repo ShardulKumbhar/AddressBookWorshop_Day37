@@ -14,10 +14,10 @@ public class TestAddressBook {
 	}
 
 	@Test
-	public void toCheckContacts() {
-		AddressBookServer addressBook = new AddressBookServer();
-		addressBook.checkDublicate();
-		int output = addressBook.getContacts();
+	public void test() throws Exception {
+		AddressBookServer addressBookserver = new AddressBookServer();
+		addressBookserver.checkForDuplicate();
+		int output = addressBookserver.length();
 		Assert.assertEquals(1, output);
 	}
 }

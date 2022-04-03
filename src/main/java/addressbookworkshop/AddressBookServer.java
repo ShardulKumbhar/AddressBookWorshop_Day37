@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class AddressBookServer {
 	/*
-	 * 1.created arrayList created scanner class to take user input creating
-	 * 
+	 * Creating objects and arrayList
 	 */
 	static Scanner sc = new Scanner(System.in);
-	static List<Person> contact = new ArrayList<Person>();
+	static ArrayList<Person> contact = new ArrayList<Person>();
 	static Person person;
-	static AddressBookServer addressBookServer = new AddressBookServer();
+	static AddressBookServer addressBook = new AddressBookServer();
+
 	/*
 	 * regex to validate input from user
 	 */
@@ -24,41 +24,40 @@ public class AddressBookServer {
 	private static final String statePattern = "^[A-Za-z]{2,}$";
 	private static final String zipPattern = "^[0-9]{6}$";
 	private static final String phonePattern = "^[0-9]{10}$";
-	private static final String passwordPattern = "^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*$";
 
 	/*
-	 * checking dublicate first name
+	 * Checking for duplicate value
 	 */
-	public String checkDublicate() {
+	public String checkForDuplicate() throws Exception {
 		System.out.println("Enter First Name: ");
 		String name = sc.next();
-
+		if (name.matches("[A-z]{1}[a-z]{2,}")) {
+		} else {
+			System.out.println("Please Enter only Alphabets start with capital letter for name..");
+			addressBook.checkForDuplicate();
+		}
 		if (contact.size() > 0) {
 			for (Person personList : contact) {
 				person = personList;
-
 				if (name.equals(person.firstName)) {
-					System.out.println("Person with name : " + person.firstName + " already exists......");
-					addressBookServer.checkDublicate();
-				} else {
-					addressBookServer.addContact(name);
+					System.out.println(
+							"Person with name : " + person.firstName + " already exists...\nPlease enter again..");
+					addressBook.checkForDuplicate();
 
+				} else {
+					addressBook.addContact(name);
 				}
 			}
-
 		} else {
-			addressBookServer.addContact(name);
-
+			addressBook.addContact(name);
 		}
 		return name;
 	}
-	/*
-	 * 2. Method to add Contacts Adding contacts with user name
-	 * 
-	 * checking first name already exists or not If first name is not exist then
-	 * adding all contacts
-	 */
 
+	/*
+	 * Adding Contacts in contact and validating all the inputs given by user
+	 * using @REGEX
+	 */
 	public Person addContact(String name) {
 		while (true) {
 			String firstName = name;
@@ -124,27 +123,27 @@ public class AddressBookServer {
 			}
 
 			person = new Person(firstName, lastName, address, city, state, zip, phno, emailId);
+			contact.add(person);
 			System.out.println(person);
 			return person;
 		}
 	}
 
 	/*
-	 * 3.method to editDetails looping in Arraycontact checking first name is equal
-	 * as given name for edit
-	 * 
+	 * Getting Length of contact
 	 */
+	public Integer length() {
+		int a = addressBook.contact.size();
+		return a;
+	}
 
-	public List<Person> editDetails() throws Exception {
+	/*
+	 * Editing contacts by firstName
+	 */
+	public static void editDetails() throws Exception {
 		System.out.println("Enter first name: ");
 		String fname = sc.next();
-		/*
-		 * looping in Arraycontact
-		 */
 		for (int i = 0; i < contact.size(); i++) {
-			/*
-			 * checking first name is equal as given name for edit
-			 */
 			if (contact.get(i).getFirstName().equals(fname)) {
 				System.out.println(contact.get(i));
 				System.out.println(
@@ -155,131 +154,99 @@ public class AddressBookServer {
 					System.out.println("Enter new FirstName: ");
 					String new_first_name = sc.next();
 					contact.get(i).setFirstName(new_first_name);
-					System.out.println(contact.get(i).getFirstName());
+
 					break;
 				case 2:
 					System.out.println("Enter new LastName: ");
 					String new_last_name = sc.next();
 					contact.get(i).setLastName(new_last_name);
-					System.out.println(contact.get(i).getLastName());
+
 					break;
 				case 3:
 					System.out.println("Enter new Address: ");
 					String new_address = sc.next();
 					contact.get(i).setAddress(new_address);
-					System.out.println(contact.get(i).getAddress());
+
 					break;
 				case 4:
 					System.out.println("Enter new City Name: ");
 					String new_city = sc.next();
 					contact.get(i).setCity(new_city);
-					System.out.println(contact.get(i).getCity());
+
 					break;
 				case 5:
 					System.out.println("Enter new State Name: ");
 					String new_state = sc.next();
 					contact.get(i).setState(new_state);
-					System.out.println(contact.get(i).getState());
+
 					break;
 				case 6:
 					System.out.println("Enter new Zip code: ");
+
 					String new_zip = sc.next();
 					contact.get(i).setZip(new_zip);
-					System.out.println(contact.get(i).getZip());
+
 					break;
 				case 7:
 					System.out.println("Enter new Phone Number: ");
 					String new_phno = sc.next();
 					contact.get(i).setPhno(new_phno);
-					System.out.println(contact.get(i).getPhno());
+
 					break;
 				case 8:
 					System.out.println("Enter new email Id: ");
 					String new_emailId = sc.next();
 					contact.get(i).setEmailId(new_emailId);
-					System.out.println(contact.get(i).getEmailId());
+
 					break;
 				default:
 					System.out.println("Enter a valid choice");
 					break;
 				}
+			} else {
+				System.out.println("No Person Exist by this name...");
 			}
 		}
-		return contact;
-	}
-
-	public static int getContacts() {
-		int size = contact.size();
-		return size;
-	}
-
-	public void deleteContact() throws Exception {
-
-		System.out.println("Enter the first name to Delete");
-		String dname = sc.next();
-		if (contact.size() > 0) {
-			for (int i = 0; i < contact.size(); i++) {
-				for (Person personList : contact) {
-
-					if (contact.get(i).getFirstName().equalsIgnoreCase(dname)) {
-						contact.remove(i);
-						System.out.println("Contacts removed successfully");
-						System.out.println(contact);
-						break;
-					}
-				}
-			}
-		} else {
-			System.out.println("Match not found");
-		}
-
+		System.out.println(contact);
 	}
 
 	/*
-	 * main method to manaupulate operation
+	 * To Delete any contacts
 	 */
-	public static void main(String[] args) throws Exception {
-
-		AddressBookServer addressBook = new AddressBookServer();
-		MultipleAddressBook multiAddressBook = new MultipleAddressBook();
-		System.out.println("Welcome to Address Book Program in AddressBook Main Class");
-
-		try {
-			while (true) {
-				System.out.println(
-						"Enter choice...\n1 :Add multiple address book \n2 :Add Contact to Address Book  \n3 :Edit Contact Details \n4 :DeleteContacts \n5 :edit contact Details ");
-				int choice = sc.nextInt();
-				switch (choice) {
-				case 1:
-					multiAddressBook.AddMultipleAddressBook();
+	public void deleteContact() throws Exception {
+		System.out.print("Enter the first name to delete: ");
+		String dName = sc.next();
+		if (contact.size() > 0) {
+			for (int i = 0; i < contact.size(); i++) {
+				if (contact.get(i).getFirstName().equalsIgnoreCase(dName)) {
+					contact.remove(i);
+					System.out.println("Contact deleted...");
+					System.out.println(contact);
 					break;
-				case 2:
-					multiAddressBook.noOfContactsToAdd();
-					break;
-				case 3:
-
-					if (addressBook.contact.isEmpty()) {
-						System.out.println("Address Book is empty..!!");
-						break;
-					} else {
-						addressBook.editDetails();
-					}
-
-					break;
-				case 4:
-					addressBookServer.deleteContact();
-					break;
-				case 5:
-					addressBookServer.editDetails();
-					break;
-
-				default: {
-					System.out.println("Enter a correct choice");
-				}
 				}
 			}
-		} catch (Exception e) {
-			System.out.println();
+			System.out.println("...Contact not found!!!\n");
+		} else {
+			System.out.println("***Empty AddressBook***");
+		}
+	}
+
+	/*
+	 * To Find Contacts by name
+	 */
+	public void findContact() throws Exception {
+		System.out.println("Enter the first name: ");
+		String fName = sc.next();
+		if (contact.size() > 0) {
+			for (int i = 0; i <= contact.size(); i++) {
+				if (contact.get(i).getFirstName().equalsIgnoreCase(fName)) {
+					System.out.println("Here is the Contact you are looking for :- \n" + contact.get(i));
+					break;
+				}
+			}
+			System.out.println("...Contact not found!!!\n");
+		} else {
+			System.out.println("***Empty AddressBook***");
 		}
 	}
 
