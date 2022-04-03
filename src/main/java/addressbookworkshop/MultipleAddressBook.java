@@ -1,16 +1,14 @@
-import java.util.ArrayList;
+package addressbookworkshop;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import addressbookworkshop.AddressBook;
-
 public class MultipleAddressBook {
 
 	Map<String, AddressBookServer> addressBookSystem = new HashMap<String, AddressBookServer>();
 	Scanner sc = new Scanner(System.in);
-
 
 	public void AddMultipleAddressBook() {
 		System.out.println("Enter the name of address book :");
@@ -32,7 +30,6 @@ public class MultipleAddressBook {
 		}
 	}
 
-	
 	public void addingContacts() throws Exception {
 		System.out.println("\nEnter name of adress book you want to add contatcts in");
 		String existingBook = sc.next();
@@ -53,7 +50,6 @@ public class MultipleAddressBook {
 		}
 	}
 
-	
 	public void noOfContactsToAdd() throws Exception {
 		MultipleAddressBook map = new MultipleAddressBook();
 		try {

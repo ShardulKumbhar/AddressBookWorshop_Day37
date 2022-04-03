@@ -1,10 +1,9 @@
+package addressbookworkshop;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-import addressbookworkshop.AddressBook;
-import addressbookworkshop.Person;
 
 public class AddressBookServer {
 	/*
@@ -131,8 +130,8 @@ public class AddressBookServer {
 	}
 
 	/*
-	 * 3.method to editDetails looping in Arraylist checking first name is equal as
-	 * given name for edit
+	 * 3.method to editDetails looping in Arraycontact checking first name is equal
+	 * as given name for edit
 	 * 
 	 */
 
@@ -214,6 +213,28 @@ public class AddressBookServer {
 		return size;
 	}
 
+	public void deleteContact() throws Exception {
+
+		System.out.println("Enter the first name to Delete");
+		String dname = sc.next();
+		if (contact.size() > 0) {
+			for (int i = 0; i < contact.size(); i++) {
+				for (Person personList : contact) {
+
+					if (contact.get(i).getFirstName().equalsIgnoreCase(dname)) {
+						contact.remove(i);
+						System.out.println("Contacts removed successfully");
+						System.out.println(contact);
+						break;
+					}
+				}
+			}
+		} else {
+			System.out.println("Match not found");
+		}
+
+	}
+
 	/*
 	 * main method to manaupulate operation
 	 */
@@ -226,7 +247,7 @@ public class AddressBookServer {
 		try {
 			while (true) {
 				System.out.println(
-						"Enter choice...\n1 :Add multiple address book \n2 :Add Contact to Address Book  \n3 :Edit Contact Details ");
+						"Enter choice...\n1 :Add multiple address book \n2 :Add Contact to Address Book  \n3 :Edit Contact Details \n4 :DeleteContacts \n5 :edit contact Details ");
 				int choice = sc.nextInt();
 				switch (choice) {
 				case 1:
@@ -244,6 +265,12 @@ public class AddressBookServer {
 						addressBook.editDetails();
 					}
 
+					break;
+				case 4:
+					addressBookServer.deleteContact();
+					break;
+				case 5:
+					addressBookServer.editDetails();
 					break;
 
 				default: {

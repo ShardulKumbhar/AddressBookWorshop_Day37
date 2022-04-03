@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import addressbookworkshop.AddressBookServer;
+
 public class TestAddressBook {
 
 	@Test
