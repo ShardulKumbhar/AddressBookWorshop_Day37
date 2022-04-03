@@ -16,7 +16,7 @@ public class MainAddressBookSystemToRun {
 				System.out.println(
 						"Enter choice...\n1. Add new contact in AddressBook\n2. Edit existing details\n3. Delete existing details\n4. Find contact by name"
 								+ "\n .................."
-								+ "\n5. Add AddressBook \n6: Add Contact in AddressBook \n7: Display AddressBook");
+								+ "\n5. Add AddressBook \n6: Add Contact in AddressBook \n7: Display AddressBook \n8 :search by state \n9 :serch by city");
 
 				int choice = sc.nextInt();
 				switch (choice) {
@@ -54,10 +54,16 @@ public class MainAddressBookSystemToRun {
 					multiAddressBook.AddMultipleAddressBook();
 					break;
 				case 6:
-					multiAddressBook.addingContacts();
+					multiAddressBook.noOfContactsToAdd();
 					break;
 				case 7:
 					multiAddressBook.displayBook();
+					break;
+				case 8:
+					multiAddressBook.searchByState();
+					break;
+				case 9:
+					multiAddressBook.searchByCity();
 					break;
 				}
 			}

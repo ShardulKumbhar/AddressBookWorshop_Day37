@@ -250,4 +250,11 @@ public class AddressBookServer {
 		}
 	}
 
+	/*
+	 * Method display to list the contacts.
+	 */
+	public void displayContact() {
+		System.out.println(contact);
+	}
+
 }

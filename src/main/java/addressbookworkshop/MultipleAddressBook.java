@@ -51,10 +51,9 @@ public class MultipleAddressBook {
 	}
 
 	public void noOfContactsToAdd() throws Exception {
-
 		try {
 
-			System.out.println("Enter Number of addressBookSystems to Add");
+			System.out.println("Enter Number of Contacts to Add");
 			int a = sc.nextInt();
 			for (int i = 1; i <= a; i++) {
 				addingContacts();
@@ -82,6 +81,46 @@ public class MultipleAddressBook {
 			System.out.println(addressBookSystem.get(i).contact);
 		}
 
+	}
+
+	/*
+	 * We have used the get(key) metod to print the contacts.
+	 */
+	public void printContactsInBook() {
+		for (String i : addressBookSystem.keySet()) {
+			System.out.println(i);
+			System.out.println(addressBookSystem.get(i).contact);
+		}
+		System.out.println(" ");
+	}
+
+	/*
+	 * In this method we are searching the person by the city
+	 */
+	public void searchByCity() {
+
+		System.out.println("Enter the name of the City to get the persons : ");
+		String cityName = sc.next();
+		for (String i : addressBookSystem.keySet()) {
+			List<Person> arr = addressBookSystem.get(i).contact;
+			arr.stream().filter(person -> person.getCity().equals(cityName))
+					.forEach(person -> System.out.println(person.getFirstName()));
+		}
+	}
+
+	/*
+	 * In this method we are searching the person by the state
+	 */
+	public void searchByState() {
+
+		System.out.println("Enter the name of the State to the get persons : ");
+		String stateName = sc.next();
+		for (String i : addressBookSystem.keySet()) {
+			List<Person> arr = addressBookSystem.get(i).contact;
+			arr.stream().filter(person -> person.getState().equals(stateName))
+					.forEach(person -> System.out.println(person.getFirstName()));
+
+		}
 	}
 
 }
