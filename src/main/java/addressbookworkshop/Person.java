@@ -96,6 +96,9 @@ public class Person {
 		this.emailId = emailId;
 	}
 
+	/*
+	 * method to display
+	 */
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
